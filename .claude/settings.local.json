@@ -10,7 +10,9 @@
       "Bash(npx next:*)",
       "Bash(gh repo:*)",
       "Bash(cp:*)",
-      "Bash(touch:*)"
+      "Bash(touch:*)",
+      "Bash(gh api:*)",
+      "WebSearch"
     ]
   }
 }

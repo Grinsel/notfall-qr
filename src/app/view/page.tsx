@@ -6,6 +6,7 @@ import { parseStructuredContent, StructuredSection } from "@/lib/emergency-data"
 
 const SECTION_LABELS: Record<string, string> = {
   PERSON: "Persoenliche Daten",
+  WOHNUNG: "Wohnung / Gebaeude",
   MEDIZINISCH: "Medizinische Daten",
   NOTFALLKONTAKTE: "Notfallkontakte",
   SONSTIGES: "Sonstiges",

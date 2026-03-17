@@ -10,11 +10,21 @@ export interface EmergencyData {
   gender: string;
   bloodType: string;
 
+  // Wohnung / Gebäude
+  spareKey: string;
+  emergencyBox: string;
+  heatingType: string;
+  heatingShutoff: string;
+  solarSystem: string;
+  solarShutoff: string;
+  pets: string;
+
   // Medizinische Daten
   conditions: string;
   allergies: string;
   medications: string;
   implants: string;
+  familyDoctor: string;
 
   // Notfallkontakte
   contacts: EmergencyContact[];
@@ -32,10 +42,18 @@ export function createEmptyEmergencyData(): EmergencyData {
     birthdate: "",
     gender: "",
     bloodType: "",
+    spareKey: "",
+    emergencyBox: "",
+    heatingType: "",
+    heatingShutoff: "",
+    solarSystem: "",
+    solarShutoff: "",
+    pets: "",
     conditions: "",
     allergies: "",
     medications: "",
     implants: "",
+    familyDoctor: "",
     contacts: [{ name: "", phone: "" }],
     organDonor: "",
     livingWill: "",
@@ -63,12 +81,29 @@ export function serializeEmergencyData(data: EmergencyData): string {
     lines.push(...personLines);
   }
 
+  // Wohnung / Gebäude
+  const wohnungLines: string[] = [];
+  if (data.spareKey.trim()) wohnungLines.push(`Ersatzschluessel: ${data.spareKey.trim()}`);
+  if (data.emergencyBox) wohnungLines.push(`Notfalldose: ${data.emergencyBox}`);
+  if (data.heatingType) wohnungLines.push(`Heizung: ${data.heatingType}`);
+  if (data.heatingShutoff.trim()) wohnungLines.push(`Absperrhahn: ${data.heatingShutoff.trim()}`);
+  if (data.solarSystem) wohnungLines.push(`Solaranlage: ${data.solarSystem}`);
+  if (data.solarShutoff.trim()) wohnungLines.push(`Hauptsicherung: ${data.solarShutoff.trim()}`);
+  if (data.pets.trim()) wohnungLines.push(`Haustiere: ${data.pets.trim()}`);
+
+  if (wohnungLines.length > 0) {
+    lines.push("");
+    lines.push("[WOHNUNG]");
+    lines.push(...wohnungLines);
+  }
+
   // Medizinisch
   const medLines: string[] = [];
   if (data.conditions.trim()) medLines.push(`Vorerkrankungen: ${data.conditions.trim()}`);
   if (data.allergies.trim()) medLines.push(`Allergien: ${data.allergies.trim()}`);
   if (data.medications.trim()) medLines.push(`Medikamente: ${data.medications.trim()}`);
   if (data.implants.trim()) medLines.push(`Implantate: ${data.implants.trim()}`);
+  if (data.familyDoctor.trim()) medLines.push(`Hausarzt: ${data.familyDoctor.trim()}`);
 
   if (medLines.length > 0) {
     lines.push("");
@@ -175,10 +210,18 @@ export function isEmergencyDataEmpty(data: EmergencyData): boolean {
     !data.birthdate.trim() &&
     !data.gender &&
     !data.bloodType &&
+    !data.spareKey.trim() &&
+    !data.emergencyBox &&
+    !data.heatingType &&
+    !data.heatingShutoff.trim() &&
+    !data.solarSystem &&
+    !data.solarShutoff.trim() &&
+    !data.pets.trim() &&
     !data.conditions.trim() &&
     !data.allergies.trim() &&
     !data.medications.trim() &&
     !data.implants.trim() &&
+    !data.familyDoctor.trim() &&
     !data.contacts.some((c) => c.name.trim() || c.phone.trim()) &&
     !data.organDonor &&
     !data.livingWill.trim() &&

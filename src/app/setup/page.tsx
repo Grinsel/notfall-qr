@@ -20,6 +20,8 @@ const MAX_CONTACTS = 3;
 const BLOOD_TYPES = ["", "A+", "A-", "B+", "B-", "AB+", "AB-", "0+", "0-"];
 const GENDERS = ["", "Maennlich", "Weiblich", "Divers"];
 const ORGAN_DONOR_OPTIONS = ["", "Ja", "Nein", "Unbekannt"];
+const JA_NEIN_OPTIONS = ["", "Ja", "Nein"];
+const HEATING_TYPES = ["", "Gas", "Oel", "Fernwaerme", "Waermepumpe"];
 
 export default function SetupPage() {
   const [data, setData] = useState<EmergencyData>(createEmptyEmergencyData());
@@ -30,6 +32,26 @@ export default function SetupPage() {
   const [generating, setGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const hasNotfalldose = data.emergencyBox === "Ja";
+
+  const NOTFALLDOSE_HIDDEN_FIELDS: (keyof EmergencyData)[] = [
+    "birthdate", "gender", "bloodType",
+    "conditions", "allergies", "medications", "implants", "familyDoctor",
+    "organDonor", "livingWill", "insurance",
+  ];
+
+  function toggleNotfalldose(checked: boolean) {
+    setData((prev) => {
+      const next = { ...prev, emergencyBox: checked ? "Ja" : "" };
+      if (checked) {
+        for (const field of NOTFALLDOSE_HIDDEN_FIELDS) {
+          (next as Record<string, unknown>)[field] = "";
+        }
+      }
+      return next;
+    });
+  }
 
   const serialized = useMemo(() => serializeEmergencyData(data), [data]);
   const charCount = serialized.length;
@@ -168,6 +190,41 @@ export default function SetupPage() {
                 </div>
               </div>
 
+              {/* Notfalldose Info-Box */}
+              <div className="rounded-lg border-2 border-green-600 bg-green-50 p-4 mb-6">
+                <h3 className="text-base font-semibold text-green-800 mb-2">
+                  Haben Sie eine Notfalldose?
+                </h3>
+                <p className="text-sm text-green-700 mb-3">
+                  Die Notfalldose (SOS-Dose / Rotkreuzdose) ist ein Behaelter im Kuehlschrank, der
+                  alle wichtigen medizinischen Daten auf Papier enthaelt. Rettungskraefte wissen, wo
+                  sie suchen muessen. Wenn Sie eine Notfalldose haben, werden medizinische Felder
+                  hier ausgeblendet &ndash; die Daten stehen bereits in Ihrer Dose.
+                </p>
+                <p className="text-sm text-green-700 mb-3">
+                  Mehr Infos:{" "}
+                  <a
+                    href="https://notfalldose.de"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline font-medium text-green-800 hover:text-green-900"
+                  >
+                    notfalldose.de
+                  </a>
+                </p>
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={hasNotfalldose}
+                    onChange={(e) => toggleNotfalldose(e.target.checked)}
+                    className="w-5 h-5 rounded border-green-600 text-green-600 focus:ring-green-500"
+                  />
+                  <span className="text-sm font-medium text-green-800">
+                    Ja, ich habe eine Notfalldose im Kuehlschrank
+                  </span>
+                </label>
+              </div>
+
               {/* Label */}
               <div className="mb-6">
                 <label htmlFor="label" className="label-text">
@@ -203,113 +260,234 @@ export default function SetupPage() {
                       onChange={(e) => updateField("name", e.target.value)}
                     />
                   </div>
+                  {!hasNotfalldose && (
+                    <>
+                      <div>
+                        <label htmlFor="ed-birthdate" className="label-text">
+                          Geburtsdatum
+                        </label>
+                        <input
+                          id="ed-birthdate"
+                          type="text"
+                          className="input-field"
+                          placeholder="TT.MM.JJJJ"
+                          value={data.birthdate}
+                          onChange={(e) => updateField("birthdate", e.target.value)}
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="ed-gender" className="label-text">
+                          Geschlecht
+                        </label>
+                        <select
+                          id="ed-gender"
+                          className="input-field"
+                          value={data.gender}
+                          onChange={(e) => updateField("gender", e.target.value)}
+                        >
+                          {GENDERS.map((g) => (
+                            <option key={g} value={g}>
+                              {g || "– Bitte waehlen –"}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div>
+                        <label htmlFor="ed-blood" className="label-text">
+                          Blutgruppe
+                        </label>
+                        <select
+                          id="ed-blood"
+                          className="input-field"
+                          value={data.bloodType}
+                          onChange={(e) => updateField("bloodType", e.target.value)}
+                        >
+                          {BLOOD_TYPES.map((b) => (
+                            <option key={b} value={b}>
+                              {b || "– Bitte waehlen –"}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              {/* Section: Wohnung / Gebaeude */}
+              <div className="card mb-6">
+                <h2 className="text-lg font-semibold text-gray-900 mb-4">
+                  Wohnung / Gebaeude
+                </h2>
+                <div className="space-y-4">
                   <div>
-                    <label htmlFor="ed-birthdate" className="label-text">
-                      Geburtsdatum
+                    <label htmlFor="ed-sparekey" className="label-text">
+                      Ersatzschluessel
                     </label>
-                    <input
-                      id="ed-birthdate"
-                      type="text"
-                      className="input-field"
-                      placeholder="TT.MM.JJJJ"
-                      value={data.birthdate}
-                      onChange={(e) => updateField("birthdate", e.target.value)}
+                    <textarea
+                      id="ed-sparekey"
+                      className="input-field min-h-[60px] resize-y"
+                      placeholder="z.B. Ja, bei Nachbarin Frau M., Wohnung 12"
+                      value={data.spareKey}
+                      onChange={(e) => updateField("spareKey", e.target.value)}
                     />
                   </div>
-                  <div>
-                    <label htmlFor="ed-gender" className="label-text">
-                      Geschlecht
-                    </label>
-                    <select
-                      id="ed-gender"
-                      className="input-field"
-                      value={data.gender}
-                      onChange={(e) => updateField("gender", e.target.value)}
-                    >
-                      {GENDERS.map((g) => (
-                        <option key={g} value={g}>
-                          {g || "– Bitte waehlen –"}
-                        </option>
-                      ))}
-                    </select>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="ed-heating" className="label-text">
+                        Heizungsart
+                      </label>
+                      <select
+                        id="ed-heating"
+                        className="input-field"
+                        value={data.heatingType}
+                        onChange={(e) => updateField("heatingType", e.target.value)}
+                      >
+                        {HEATING_TYPES.map((h) => (
+                          <option key={h} value={h}>
+                            {h || "– Bitte waehlen –"}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
+                  {data.heatingType && (
+                    <div>
+                      <label htmlFor="ed-heatingshutoff" className="label-text">
+                        Absperrhahn Standort
+                      </label>
+                      <input
+                        id="ed-heatingshutoff"
+                        type="text"
+                        className="input-field"
+                        placeholder="z.B. Keller links neben Zaehler"
+                        value={data.heatingShutoff}
+                        onChange={(e) => updateField("heatingShutoff", e.target.value)}
+                      />
+                    </div>
+                  )}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="ed-solar" className="label-text">
+                        Solaranlage
+                      </label>
+                      <select
+                        id="ed-solar"
+                        className="input-field"
+                        value={data.solarSystem}
+                        onChange={(e) => updateField("solarSystem", e.target.value)}
+                      >
+                        {JA_NEIN_OPTIONS.map((o) => (
+                          <option key={o} value={o}>
+                            {o || "– Bitte waehlen –"}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  {data.solarSystem === "Ja" && (
+                    <div>
+                      <label htmlFor="ed-solarshutoff" className="label-text">
+                        Hauptsicherung Solar
+                      </label>
+                      <input
+                        id="ed-solarshutoff"
+                        type="text"
+                        className="input-field"
+                        placeholder="z.B. Hauptsicherung im Keller rechts"
+                        value={data.solarShutoff}
+                        onChange={(e) => updateField("solarShutoff", e.target.value)}
+                      />
+                    </div>
+                  )}
                   <div>
-                    <label htmlFor="ed-blood" className="label-text">
-                      Blutgruppe
+                    <label htmlFor="ed-pets" className="label-text">
+                      Haustiere
                     </label>
-                    <select
-                      id="ed-blood"
+                    <input
+                      id="ed-pets"
+                      type="text"
                       className="input-field"
-                      value={data.bloodType}
-                      onChange={(e) => updateField("bloodType", e.target.value)}
-                    >
-                      {BLOOD_TYPES.map((b) => (
-                        <option key={b} value={b}>
-                          {b || "– Bitte waehlen –"}
-                        </option>
-                      ))}
-                    </select>
+                      placeholder="z.B. 1 Katze (scheu), 1 Hund"
+                      value={data.pets}
+                      onChange={(e) => updateField("pets", e.target.value)}
+                    />
                   </div>
                 </div>
               </div>
 
               {/* Section: Medizinische Daten */}
-              <div className="card mb-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                  Medizinische Daten
-                </h2>
-                <div className="space-y-4">
-                  <div>
-                    <label htmlFor="ed-conditions" className="label-text">
-                      Vorerkrankungen
-                    </label>
-                    <textarea
-                      id="ed-conditions"
-                      className="input-field min-h-[60px] resize-y"
-                      placeholder="z.B. Diabetes Typ 2, Asthma"
-                      value={data.conditions}
-                      onChange={(e) => updateField("conditions", e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="ed-allergies" className="label-text">
-                      Allergien
-                    </label>
-                    <textarea
-                      id="ed-allergies"
-                      className="input-field min-h-[60px] resize-y"
-                      placeholder="z.B. Penicillin, Latex"
-                      value={data.allergies}
-                      onChange={(e) => updateField("allergies", e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="ed-medications" className="label-text">
-                      Medikamente
-                    </label>
-                    <textarea
-                      id="ed-medications"
-                      className="input-field min-h-[60px] resize-y"
-                      placeholder="z.B. Metformin 500mg, Salbutamol"
-                      value={data.medications}
-                      onChange={(e) => updateField("medications", e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="ed-implants" className="label-text">
-                      Implantate
-                    </label>
-                    <input
-                      id="ed-implants"
-                      type="text"
-                      className="input-field"
-                      placeholder="z.B. Herzschrittmacher, Knieprothese"
-                      value={data.implants}
-                      onChange={(e) => updateField("implants", e.target.value)}
-                    />
+              {!hasNotfalldose && (
+                <div className="card mb-6">
+                  <h2 className="text-lg font-semibold text-gray-900 mb-4">
+                    Medizinische Daten
+                  </h2>
+                  <div className="space-y-4">
+                    <div>
+                      <label htmlFor="ed-conditions" className="label-text">
+                        Vorerkrankungen
+                      </label>
+                      <textarea
+                        id="ed-conditions"
+                        className="input-field min-h-[60px] resize-y"
+                        placeholder="z.B. Diabetes Typ 2, Asthma"
+                        value={data.conditions}
+                        onChange={(e) => updateField("conditions", e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="ed-allergies" className="label-text">
+                        Allergien
+                      </label>
+                      <textarea
+                        id="ed-allergies"
+                        className="input-field min-h-[60px] resize-y"
+                        placeholder="z.B. Penicillin, Latex"
+                        value={data.allergies}
+                        onChange={(e) => updateField("allergies", e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="ed-medications" className="label-text">
+                        Medikamente
+                      </label>
+                      <textarea
+                        id="ed-medications"
+                        className="input-field min-h-[60px] resize-y"
+                        placeholder="z.B. Metformin 500mg, Salbutamol"
+                        value={data.medications}
+                        onChange={(e) => updateField("medications", e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="ed-implants" className="label-text">
+                        Implantate
+                      </label>
+                      <input
+                        id="ed-implants"
+                        type="text"
+                        className="input-field"
+                        placeholder="z.B. Herzschrittmacher, Knieprothese"
+                        value={data.implants}
+                        onChange={(e) => updateField("implants", e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="ed-doctor" className="label-text">
+                        Hausarzt / Hausaerztin
+                      </label>
+                      <input
+                        id="ed-doctor"
+                        type="text"
+                        className="input-field"
+                        placeholder="z.B. Praxis Dr. Schmidt, Hauptstr. 10"
+                        value={data.familyDoctor}
+                        onChange={(e) => updateField("familyDoctor", e.target.value)}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
               {/* Section: Notfallkontakte */}
               <div className="card mb-6">
@@ -387,49 +565,53 @@ export default function SetupPage() {
               <div className="card mb-6">
                 <h2 className="text-lg font-semibold text-gray-900 mb-4">Sonstiges</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="ed-organ" className="label-text">
-                      Organspender
-                    </label>
-                    <select
-                      id="ed-organ"
-                      className="input-field"
-                      value={data.organDonor}
-                      onChange={(e) => updateField("organDonor", e.target.value)}
-                    >
-                      {ORGAN_DONOR_OPTIONS.map((o) => (
-                        <option key={o} value={o}>
-                          {o || "– Bitte waehlen –"}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label htmlFor="ed-will" className="label-text">
-                      Patientenverfuegung
-                    </label>
-                    <input
-                      id="ed-will"
-                      type="text"
-                      className="input-field"
-                      placeholder="z.B. Ja, beim Hausarzt hinterlegt"
-                      value={data.livingWill}
-                      onChange={(e) => updateField("livingWill", e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="ed-insurance" className="label-text">
-                      Krankenkasse
-                    </label>
-                    <input
-                      id="ed-insurance"
-                      type="text"
-                      className="input-field"
-                      placeholder="z.B. AOK Bayern"
-                      value={data.insurance}
-                      onChange={(e) => updateField("insurance", e.target.value)}
-                    />
-                  </div>
+                  {!hasNotfalldose && (
+                    <>
+                      <div>
+                        <label htmlFor="ed-organ" className="label-text">
+                          Organspender
+                        </label>
+                        <select
+                          id="ed-organ"
+                          className="input-field"
+                          value={data.organDonor}
+                          onChange={(e) => updateField("organDonor", e.target.value)}
+                        >
+                          {ORGAN_DONOR_OPTIONS.map((o) => (
+                            <option key={o} value={o}>
+                              {o || "– Bitte waehlen –"}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div>
+                        <label htmlFor="ed-will" className="label-text">
+                          Patientenverfuegung
+                        </label>
+                        <input
+                          id="ed-will"
+                          type="text"
+                          className="input-field"
+                          placeholder="z.B. Ja, beim Hausarzt hinterlegt"
+                          value={data.livingWill}
+                          onChange={(e) => updateField("livingWill", e.target.value)}
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="ed-insurance" className="label-text">
+                          Krankenkasse
+                        </label>
+                        <input
+                          id="ed-insurance"
+                          type="text"
+                          className="input-field"
+                          placeholder="z.B. AOK Bayern"
+                          value={data.insurance}
+                          onChange={(e) => updateField("insurance", e.target.value)}
+                        />
+                      </div>
+                    </>
+                  )}
                   <div className="sm:col-span-2">
                     <label htmlFor="ed-notes" className="label-text">
                       Besondere Hinweise
@@ -437,7 +619,7 @@ export default function SetupPage() {
                     <textarea
                       id="ed-notes"
                       className="input-field min-h-[60px] resize-y"
-                      placeholder="z.B. Haustiere, Ersatzschluessel bei Nachbar"
+                      placeholder="z.B. Rollstuhlfahrer, Gehoerlos"
                       value={data.notes}
                       onChange={(e) => updateField("notes", e.target.value)}
                     />
