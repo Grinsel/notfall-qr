@@ -21,7 +21,7 @@ const BLOOD_TYPES = ["", "A+", "A-", "B+", "B-", "AB+", "AB-", "0+", "0-"];
 const GENDERS = ["", "Maennlich", "Weiblich", "Divers"];
 const ORGAN_DONOR_OPTIONS = ["", "Ja", "Nein", "Unbekannt"];
 const JA_NEIN_OPTIONS = ["", "Ja", "Nein"];
-const HEATING_TYPES = ["", "Gas", "Oel", "Fernwaerme", "Waermepumpe"];
+const HEATING_TYPES = ["Gas", "Oel", "Fernwaerme", "Waermepumpe", "Pellets", "Strom"];
 
 export default function SetupPage() {
   const [data, setData] = useState<EmergencyData>(createEmptyEmergencyData());
@@ -348,26 +348,28 @@ export default function SetupPage() {
                       />
                     </div>
                   )}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="ed-heating" className="label-text">
-                        Heizungsart
-                      </label>
-                      <select
-                        id="ed-heating"
-                        className="input-field"
-                        value={data.heatingType}
-                        onChange={(e) => updateField("heatingType", e.target.value)}
-                      >
-                        {HEATING_TYPES.map((h) => (
-                          <option key={h} value={h}>
-                            {h || "– Bitte waehlen –"}
-                          </option>
-                        ))}
-                      </select>
+                  <div>
+                    <span className="label-text">Heizungsart</span>
+                    <div className="flex flex-wrap gap-3 mt-1">
+                      {HEATING_TYPES.map((h) => (
+                        <label key={h} className="flex items-center gap-1.5 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={data.heatingType.includes(h)}
+                            onChange={(e) => {
+                              const next = e.target.checked
+                                ? [...data.heatingType, h]
+                                : data.heatingType.filter((t) => t !== h);
+                              updateField("heatingType", next);
+                            }}
+                            className="w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                          />
+                          <span className="text-sm text-gray-700">{h}</span>
+                        </label>
+                      ))}
                     </div>
                   </div>
-                  {data.heatingType && (
+                  {data.heatingType.length > 0 && (
                     <div>
                       <label htmlFor="ed-heatingshutoff" className="label-text">
                         Absperrhahn Standort
@@ -385,7 +387,7 @@ export default function SetupPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label htmlFor="ed-solar" className="label-text">
-                        Solaranlage
+                        Photovoltaik
                       </label>
                       <select
                         id="ed-solar"
@@ -404,7 +406,7 @@ export default function SetupPage() {
                   {data.solarSystem === "Ja" && (
                     <div>
                       <label htmlFor="ed-solarshutoff" className="label-text">
-                        Hauptsicherung Solar
+                        Hauptsicherung Photovoltaik
                       </label>
                       <input
                         id="ed-solarshutoff"
@@ -637,7 +639,7 @@ export default function SetupPage() {
                     <textarea
                       id="ed-notes"
                       className="input-field min-h-[60px] resize-y"
-                      placeholder="z.B. Rollstuhlfahrer, gehoerlos, Demenz, bettlaegerig, Sauerstoffgeraet, Schluesseltresor-Code"
+                      placeholder="z.B. Rollstuhlfahrer, gehoerlos, Demenz, bettlaegerig, Sauerstoffgeraet, 2. Schluessel bei Nachbar Mueller Hausnummer 4"
                       value={data.notes}
                       onChange={(e) => updateField("notes", e.target.value)}
                     />

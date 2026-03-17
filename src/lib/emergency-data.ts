@@ -14,7 +14,7 @@ export interface EmergencyData {
   spareKey: string;
   spareKeyLocation: string;
   emergencyBox: string;
-  heatingType: string;
+  heatingType: string[];
   heatingShutoff: string;
   solarSystem: string;
   solarShutoff: string;
@@ -46,7 +46,7 @@ export function createEmptyEmergencyData(): EmergencyData {
     spareKey: "",
     spareKeyLocation: "",
     emergencyBox: "",
-    heatingType: "",
+    heatingType: [],
     heatingShutoff: "",
     solarSystem: "",
     solarShutoff: "",
@@ -88,9 +88,9 @@ export function serializeEmergencyData(data: EmergencyData): string {
   if (data.spareKey.trim()) wohnungLines.push(`Ersatzschluessel: ${data.spareKey.trim()}`);
   if (data.spareKeyLocation.trim()) wohnungLines.push(`Ersatzschluessel-Ort: ${data.spareKeyLocation.trim()}`);
   if (data.emergencyBox) wohnungLines.push(`Notfalldose: ${data.emergencyBox}`);
-  if (data.heatingType) wohnungLines.push(`Heizung: ${data.heatingType}`);
+  if (data.heatingType.length > 0) wohnungLines.push(`Heizung: ${data.heatingType.join(", ")}`);
   if (data.heatingShutoff.trim()) wohnungLines.push(`Absperrhahn: ${data.heatingShutoff.trim()}`);
-  if (data.solarSystem) wohnungLines.push(`Solaranlage: ${data.solarSystem}`);
+  if (data.solarSystem) wohnungLines.push(`Photovoltaik: ${data.solarSystem}`);
   if (data.solarShutoff.trim()) wohnungLines.push(`Hauptsicherung: ${data.solarShutoff.trim()}`);
   if (data.pets.trim()) wohnungLines.push(`Haustiere: ${data.pets.trim()}`);
 
@@ -216,7 +216,7 @@ export function isEmergencyDataEmpty(data: EmergencyData): boolean {
     !data.spareKey.trim() &&
     !data.spareKeyLocation.trim() &&
     !data.emergencyBox &&
-    !data.heatingType &&
+    data.heatingType.length === 0 &&
     !data.heatingShutoff.trim() &&
     !data.solarSystem &&
     !data.solarShutoff.trim() &&
