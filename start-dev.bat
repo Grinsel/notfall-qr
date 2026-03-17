@@ -4,7 +4,7 @@ echo   Notfall-QR - Lokaler Entwicklungsserver
 echo ============================================
 echo.
 
-cd /d "%~dp0notfall-qr"
+cd /d "%~dp0"
 
 echo [1/2] Installiere Abhaengigkeiten...
 call npm install
