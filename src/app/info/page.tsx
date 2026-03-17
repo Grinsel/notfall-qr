@@ -109,6 +109,102 @@ export default function InfoPage() {
             </div>
           </section>
 
+          {/* Datenkategorien */}
+          <section className="mb-10">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Was bringt jede Information im Notfall?</h2>
+            <div className="space-y-2">
+              <details className="group rounded-lg border border-gray-200 bg-gray-50">
+                <summary className="cursor-pointer px-4 py-3 font-medium text-gray-900 select-none">
+                  Name / Alias
+                </summary>
+                <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
+                  <p className="mb-2">Rettungskr&auml;fte k&ouml;nnen Sie direkt ansprechen &ndash; das schafft Vertrauen und erleichtert die Kommunikation, besonders wenn Sie verwirrt oder bewusstlos sind.</p>
+                  <p className="text-gray-500"><strong>Datenschutz-Tipp:</strong> Verwenden Sie einen Alias oder Vornamen mit abgek&uuml;rztem Nachnamen.</p>
+                </div>
+              </details>
+
+              <details className="group rounded-lg border border-gray-200 bg-gray-50">
+                <summary className="cursor-pointer px-4 py-3 font-medium text-gray-900 select-none">
+                  Blutgruppe
+                </summary>
+                <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
+                  <p className="mb-2">Bei schweren Verletzungen mit Blutverlust kann die bekannte Blutgruppe lebensrettend sein &ndash; die Notaufnahme kann sofort passende Blutkonserven bereitstellen, statt auf den Labortest zu warten.</p>
+                  <p className="text-gray-500"><strong>Datenschutz-Tipp:</strong> Die Blutgruppe allein erlaubt keine R&uuml;ckschl&uuml;sse auf Ihre Identit&auml;t.</p>
+                </div>
+              </details>
+
+              <details className="group rounded-lg border border-gray-200 bg-gray-50">
+                <summary className="cursor-pointer px-4 py-3 font-medium text-gray-900 select-none">
+                  Vorerkrankungen
+                </summary>
+                <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
+                  <p className="mb-2">Chronische Erkrankungen wie Diabetes, Epilepsie oder Herzerkrankungen beeinflussen direkt die Erstversorgung. Der Rettungsdienst kann so z.B. bei einer Bewusstlosigkeit sofort eine Unterzuckerung in Betracht ziehen.</p>
+                  <p className="text-gray-500"><strong>Datenschutz-Tipp:</strong> Nennen Sie nur akut relevante Erkrankungen, nicht Ihre vollst&auml;ndige Krankengeschichte.</p>
+                </div>
+              </details>
+
+              <details className="group rounded-lg border border-gray-200 bg-gray-50">
+                <summary className="cursor-pointer px-4 py-3 font-medium text-gray-900 select-none">
+                  Allergien
+                </summary>
+                <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
+                  <p className="mb-2">Medikamenten-Allergien (z.B. Penicillin, Ibuprofen) oder Latex-Allergien k&ouml;nnen im Notfall lebensgef&auml;hrlich werden. Rettungskr&auml;fte vermeiden dann sofort die betreffenden Stoffe.</p>
+                  <p className="text-gray-500"><strong>Datenschutz-Tipp:</strong> Allergien allein lassen kaum R&uuml;ckschl&uuml;sse auf Ihre Person zu.</p>
+                </div>
+              </details>
+
+              <details className="group rounded-lg border border-gray-200 bg-gray-50">
+                <summary className="cursor-pointer px-4 py-3 font-medium text-gray-900 select-none">
+                  Medikamente
+                </summary>
+                <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
+                  <p className="mb-2">Regelm&auml;&szlig;ig eingenommene Medikamente (besonders Blutverd&uuml;nner, Insulin, Herzmedikamente) beeinflussen die Behandlung. Wechselwirkungen mit Notfallmedikamenten k&ouml;nnen so vermieden werden.</p>
+                  <p className="text-gray-500"><strong>Datenschutz-Tipp:</strong> Medikamentennamen mit Dosierung reichen. Keine Diagnosen nötig, wenn Sie sie nicht angeben möchten.</p>
+                </div>
+              </details>
+
+              <details className="group rounded-lg border border-gray-200 bg-gray-50">
+                <summary className="cursor-pointer px-4 py-3 font-medium text-gray-900 select-none">
+                  Implantate
+                </summary>
+                <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
+                  <p className="mb-2">Herzschrittmacher, Defibrillatoren, k&uuml;nstliche Gelenke oder Metallimplantate sind wichtig f&uuml;r bildgebende Diagnostik (MRT) und Defibrillation.</p>
+                  <p className="text-gray-500"><strong>Datenschutz-Tipp:</strong> Nennen Sie den Typ des Implantats, nicht den Grund daf&uuml;r.</p>
+                </div>
+              </details>
+
+              <details className="group rounded-lg border border-gray-200 bg-gray-50">
+                <summary className="cursor-pointer px-4 py-3 font-medium text-gray-900 select-none">
+                  Notfallkontakte
+                </summary>
+                <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
+                  <p className="mb-2">Angeh&ouml;rige k&ouml;nnen im Notfall wichtige medizinische Ausk&uuml;nfte geben und schnelle Entscheidungen treffen. Au&szlig;erdem werden sie so schnellstm&ouml;glich informiert.</p>
+                  <p className="text-gray-500"><strong>Datenschutz-Tipp:</strong> Verwenden Sie abgek&uuml;rzte Namen (z.B. &bdquo;Maria M.&ldquo;) und nur Mobilnummern.</p>
+                </div>
+              </details>
+
+              <details className="group rounded-lg border border-gray-200 bg-gray-50">
+                <summary className="cursor-pointer px-4 py-3 font-medium text-gray-900 select-none">
+                  Organspender
+                </summary>
+                <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
+                  <p className="mb-2">Im schlimmsten Fall kann diese Angabe anderen Menschen das Leben retten. &Auml;rzte wissen sofort, ob eine Organspende in Frage kommt.</p>
+                  <p className="text-gray-500"><strong>Datenschutz-Tipp:</strong> Ein einfaches &bdquo;Ja&ldquo; oder &bdquo;Nein&ldquo; &ndash; keine sensiblen Daten.</p>
+                </div>
+              </details>
+
+              <details className="group rounded-lg border border-gray-200 bg-gray-50">
+                <summary className="cursor-pointer px-4 py-3 font-medium text-gray-900 select-none">
+                  Krankenkasse
+                </summary>
+                <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
+                  <p className="mb-2">Beschleunigt die Aufnahme im Krankenhaus und vermeidet Verz&ouml;gerungen bei der Abrechnung. Nicht medizinisch relevant, aber organisatorisch hilfreich.</p>
+                  <p className="text-gray-500"><strong>Datenschutz-Tipp:</strong> Nur der Name der Kasse reicht &ndash; keine Versichertennummer angeben.</p>
+                </div>
+              </details>
+            </div>
+          </section>
+
           {/* CTA */}
           <div className="text-center pt-4">
             <Link href="/setup" className="btn-primary text-base px-8 py-3">

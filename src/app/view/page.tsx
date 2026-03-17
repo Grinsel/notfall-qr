@@ -2,6 +2,40 @@
 
 import { useEffect, useState } from "react";
 import { parseHash, decrypt } from "@/lib/crypto";
+import { parseStructuredContent, StructuredSection } from "@/lib/emergency-data";
+
+const SECTION_LABELS: Record<string, string> = {
+  PERSON: "Persoenliche Daten",
+  MEDIZINISCH: "Medizinische Daten",
+  NOTFALLKONTAKTE: "Notfallkontakte",
+  SONSTIGES: "Sonstiges",
+};
+
+function StructuredView({ sections }: { sections: StructuredSection[] }) {
+  return (
+    <div className="space-y-4">
+      {sections.map((section, i) => (
+        <div key={i} className="bg-gray-800 rounded-lg p-4">
+          <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">
+            {SECTION_LABELS[section.title] || section.title}
+          </h2>
+          <dl className="space-y-2">
+            {section.entries.map((entry, j) => (
+              <div key={j} className="flex flex-col sm:flex-row sm:gap-2">
+                {entry.label && (
+                  <dt className="text-gray-400 text-sm sm:min-w-[140px] shrink-0">
+                    {entry.label}:
+                  </dt>
+                )}
+                <dd className="text-gray-100 text-lg">{entry.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function ViewPage() {
   const [content, setContent] = useState<string | null>(null);
@@ -51,24 +85,36 @@ export default function ViewPage() {
         <div className="text-center">
           <div className="text-5xl mb-6">&#9888;</div>
           <h1 className="text-2xl sm:text-3xl font-bold text-white mb-3">
-            QR-Code ungültig oder beschädigt
+            QR-Code ungueltig oder beschaedigt
           </h1>
           <p className="text-gray-400 text-sm">
-            Die Daten konnten nicht entschlüsselt werden.
+            Die Daten konnten nicht entschluesselt werden.
           </p>
         </div>
       </div>
     );
   }
 
+  const structured = parseStructuredContent(content);
+
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       {/* Emergency header */}
       <div className="bg-emergency-600 px-4 py-4">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
-          <svg className="w-8 h-8 text-white shrink-0" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            className="w-8 h-8 text-white shrink-0"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <rect width="32" height="32" rx="8" fill="currentColor" fillOpacity="0.3" />
-            <path d="M16 6L16 26M6 16H26" stroke="white" strokeWidth="3" strokeLinecap="round" />
+            <path
+              d="M16 6L16 26M6 16H26"
+              stroke="white"
+              strokeWidth="3"
+              strokeLinecap="round"
+            />
           </svg>
           <div>
             <h1 className="text-lg font-bold">Notfallinformationen</h1>
@@ -79,9 +125,13 @@ export default function ViewPage() {
 
       {/* Content */}
       <div className="max-w-2xl mx-auto px-4 py-6">
-        <pre className="whitespace-pre-wrap font-sans text-lg sm:text-xl leading-relaxed text-gray-100">
-          {content}
-        </pre>
+        {structured ? (
+          <StructuredView sections={structured} />
+        ) : (
+          <pre className="whitespace-pre-wrap font-sans text-lg sm:text-xl leading-relaxed text-gray-100">
+            {content}
+          </pre>
+        )}
       </div>
 
       {/* Footer */}
