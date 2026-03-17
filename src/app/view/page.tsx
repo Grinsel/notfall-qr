@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { parseHash, decrypt } from "@/lib/crypto";
 import { parseStructuredContent, StructuredSection } from "@/lib/emergency-data";
+import { Logo } from "@/components/Logo";
 
 const SECTION_LABELS: Record<string, string> = {
   PERSON: "Persoenliche Daten",
@@ -103,20 +104,7 @@ export default function ViewPage() {
       {/* Emergency header */}
       <div className="bg-emergency-600 px-4 py-4">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
-          <svg
-            className="w-8 h-8 text-white shrink-0"
-            viewBox="0 0 32 32"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect width="32" height="32" rx="8" fill="currentColor" fillOpacity="0.3" />
-            <path
-              d="M16 6L16 26M6 16H26"
-              stroke="white"
-              strokeWidth="3"
-              strokeLinecap="round"
-            />
-          </svg>
+          <Logo className="w-8 h-8 shrink-0" />
           <div>
             <h1 className="text-lg font-bold">Notfallinformationen</h1>
             <p className="text-sm text-white/80">Notfall-QR</p>

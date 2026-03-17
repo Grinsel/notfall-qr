@@ -12,7 +12,9 @@
       "Bash(cp:*)",
       "Bash(touch:*)",
       "Bash(gh api:*)",
-      "WebSearch"
+      "WebSearch",
+      "WebFetch(domain:ready4rescue.retter.one)",
+      "Bash(ls:*)"
     ]
   }
 }
