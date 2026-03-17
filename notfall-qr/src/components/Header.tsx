@@ -14,7 +14,10 @@ export function Header() {
           <span className="text-xl font-bold">Notfall-QR</span>
         </Link>
         <nav className="flex items-center gap-4">
-          <Link href="/erstellen" className="btn-primary text-sm">
+          <Link href="/info" className="text-sm text-gray-600 hover:text-gray-900">
+            Info
+          </Link>
+          <Link href="/setup" className="btn-primary text-sm">
             QR-Code erstellen
           </Link>
         </nav>

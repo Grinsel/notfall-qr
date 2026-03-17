@@ -6,7 +6,9 @@
       "Bash(npx prisma:*)",
       "Bash(npm run:*)",
       "Bash(pkill:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(npx next:*)",
+      "Bash(gh repo:*)"
     ]
   }
 }
