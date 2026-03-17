@@ -48,6 +48,7 @@ export default function SetupPage() {
         for (const field of NOTFALLDOSE_HIDDEN_FIELDS) {
           (next as Record<string, unknown>)[field] = "";
         }
+        next.contacts = [{ name: "", phone: "" }];
       }
       return next;
     });
@@ -191,23 +192,23 @@ export default function SetupPage() {
               </div>
 
               {/* Notfalldose Info-Box */}
-              <div className="rounded-lg border-2 border-green-600 bg-green-50 p-4 mb-6">
-                <h3 className="text-base font-semibold text-green-800 mb-2">
+              <div className="rounded-lg border-2 border-primary-600 bg-primary-50 p-4 mb-6">
+                <h3 className="text-base font-semibold text-primary-800 mb-2">
                   Haben Sie eine Notfalldose?
                 </h3>
-                <p className="text-sm text-green-700 mb-3">
+                <p className="text-sm text-primary-700 mb-3">
                   Die Notfalldose (SOS-Dose / Rotkreuzdose) ist ein Behaelter im Kuehlschrank, der
                   alle wichtigen medizinischen Daten auf Papier enthaelt. Rettungskraefte wissen, wo
                   sie suchen muessen. Wenn Sie eine Notfalldose haben, werden medizinische Felder
                   hier ausgeblendet &ndash; die Daten stehen bereits in Ihrer Dose.
                 </p>
-                <p className="text-sm text-green-700 mb-3">
+                <p className="text-sm text-primary-700 mb-3">
                   Mehr Infos:{" "}
                   <a
                     href="https://notfalldose.de"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline font-medium text-green-800 hover:text-green-900"
+                    className="underline font-medium text-primary-800 hover:text-primary-900"
                   >
                     notfalldose.de
                   </a>
@@ -217,9 +218,9 @@ export default function SetupPage() {
                     type="checkbox"
                     checked={hasNotfalldose}
                     onChange={(e) => toggleNotfalldose(e.target.checked)}
-                    className="w-5 h-5 rounded border-green-600 text-green-600 focus:ring-green-500"
+                    className="w-5 h-5 rounded border-primary-600 text-primary-600 focus:ring-primary-500"
                   />
-                  <span className="text-sm font-medium text-green-800">
+                  <span className="text-sm font-medium text-primary-800">
                     Ja, ich habe eine Notfalldose im Kuehlschrank
                   </span>
                 </label>
@@ -332,6 +333,21 @@ export default function SetupPage() {
                       onChange={(e) => updateField("spareKey", e.target.value)}
                     />
                   </div>
+                  {data.spareKey.trim() && (
+                    <div>
+                      <label htmlFor="ed-sparekeyloc" className="label-text">
+                        Ersatzschluessel-Ort
+                      </label>
+                      <input
+                        id="ed-sparekeyloc"
+                        type="text"
+                        className="input-field"
+                        placeholder="z.B. Schluesseltresor an der Hauswand, Nachbarin Frau M. Wohnung 12"
+                        value={data.spareKeyLocation}
+                        onChange={(e) => updateField("spareKeyLocation", e.target.value)}
+                      />
+                    </div>
+                  )}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label htmlFor="ed-heating" className="label-text">
@@ -490,76 +506,78 @@ export default function SetupPage() {
               )}
 
               {/* Section: Notfallkontakte */}
-              <div className="card mb-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                  Notfallkontakte
-                </h2>
-                <div className="space-y-4">
-                  {data.contacts.map((contact, i) => (
-                    <div key={i} className="flex gap-3 items-start">
-                      <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div>
-                          <label htmlFor={`contact-name-${i}`} className="label-text">
-                            Name
-                          </label>
-                          <input
-                            id={`contact-name-${i}`}
-                            type="text"
-                            className="input-field"
-                            placeholder="z.B. Maria M."
-                            value={contact.name}
-                            onChange={(e) => updateContact(i, "name", e.target.value)}
-                          />
-                        </div>
-                        <div>
-                          <label htmlFor={`contact-phone-${i}`} className="label-text">
-                            Telefon
-                          </label>
-                          <input
-                            id={`contact-phone-${i}`}
-                            type="tel"
-                            className="input-field"
-                            placeholder="+49 123 456789"
-                            value={contact.phone}
-                            onChange={(e) => updateContact(i, "phone", e.target.value)}
-                          />
-                        </div>
-                      </div>
-                      {data.contacts.length > 1 && (
-                        <button
-                          type="button"
-                          onClick={() => removeContact(i)}
-                          className="mt-6 p-2 text-gray-400 hover:text-emergency-600 transition-colors"
-                          aria-label="Kontakt entfernen"
-                        >
-                          <svg
-                            className="w-5 h-5"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth={2}
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M6 18L18 6M6 6l12 12"
+              {!hasNotfalldose && (
+                <div className="card mb-6">
+                  <h2 className="text-lg font-semibold text-gray-900 mb-4">
+                    Notfallkontakte
+                  </h2>
+                  <div className="space-y-4">
+                    {data.contacts.map((contact, i) => (
+                      <div key={i} className="flex gap-3 items-start">
+                        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div>
+                            <label htmlFor={`contact-name-${i}`} className="label-text">
+                              Name
+                            </label>
+                            <input
+                              id={`contact-name-${i}`}
+                              type="text"
+                              className="input-field"
+                              placeholder="z.B. Maria M."
+                              value={contact.name}
+                              onChange={(e) => updateContact(i, "name", e.target.value)}
                             />
-                          </svg>
-                        </button>
-                      )}
-                    </div>
-                  ))}
-                  {data.contacts.length < MAX_CONTACTS && (
-                    <button
-                      type="button"
-                      onClick={addContact}
-                      className="text-sm text-primary-600 hover:text-primary-700 font-medium"
-                    >
-                      + Kontakt hinzufuegen
-                    </button>
-                  )}
+                          </div>
+                          <div>
+                            <label htmlFor={`contact-phone-${i}`} className="label-text">
+                              Telefon
+                            </label>
+                            <input
+                              id={`contact-phone-${i}`}
+                              type="tel"
+                              className="input-field"
+                              placeholder="+49 123 456789"
+                              value={contact.phone}
+                              onChange={(e) => updateContact(i, "phone", e.target.value)}
+                            />
+                          </div>
+                        </div>
+                        {data.contacts.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => removeContact(i)}
+                            className="mt-6 p-2 text-gray-400 hover:text-emergency-600 transition-colors"
+                            aria-label="Kontakt entfernen"
+                          >
+                            <svg
+                              className="w-5 h-5"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              strokeWidth={2}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M6 18L18 6M6 6l12 12"
+                              />
+                            </svg>
+                          </button>
+                        )}
+                      </div>
+                    ))}
+                    {data.contacts.length < MAX_CONTACTS && (
+                      <button
+                        type="button"
+                        onClick={addContact}
+                        className="text-sm text-primary-600 hover:text-primary-700 font-medium"
+                      >
+                        + Kontakt hinzufuegen
+                      </button>
+                    )}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Section: Sonstiges */}
               <div className="card mb-6">
@@ -619,7 +637,7 @@ export default function SetupPage() {
                     <textarea
                       id="ed-notes"
                       className="input-field min-h-[60px] resize-y"
-                      placeholder="z.B. Rollstuhlfahrer, Gehoerlos"
+                      placeholder="z.B. Rollstuhlfahrer, gehoerlos, Demenz, bettlaegerig, Sauerstoffgeraet, Schluesseltresor-Code"
                       value={data.notes}
                       onChange={(e) => updateField("notes", e.target.value)}
                     />

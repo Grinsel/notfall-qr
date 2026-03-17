@@ -12,6 +12,7 @@ export interface EmergencyData {
 
   // Wohnung / Gebäude
   spareKey: string;
+  spareKeyLocation: string;
   emergencyBox: string;
   heatingType: string;
   heatingShutoff: string;
@@ -43,6 +44,7 @@ export function createEmptyEmergencyData(): EmergencyData {
     gender: "",
     bloodType: "",
     spareKey: "",
+    spareKeyLocation: "",
     emergencyBox: "",
     heatingType: "",
     heatingShutoff: "",
@@ -84,6 +86,7 @@ export function serializeEmergencyData(data: EmergencyData): string {
   // Wohnung / Gebäude
   const wohnungLines: string[] = [];
   if (data.spareKey.trim()) wohnungLines.push(`Ersatzschluessel: ${data.spareKey.trim()}`);
+  if (data.spareKeyLocation.trim()) wohnungLines.push(`Ersatzschluessel-Ort: ${data.spareKeyLocation.trim()}`);
   if (data.emergencyBox) wohnungLines.push(`Notfalldose: ${data.emergencyBox}`);
   if (data.heatingType) wohnungLines.push(`Heizung: ${data.heatingType}`);
   if (data.heatingShutoff.trim()) wohnungLines.push(`Absperrhahn: ${data.heatingShutoff.trim()}`);
@@ -211,6 +214,7 @@ export function isEmergencyDataEmpty(data: EmergencyData): boolean {
     !data.gender &&
     !data.bloodType &&
     !data.spareKey.trim() &&
+    !data.spareKeyLocation.trim() &&
     !data.emergencyBox &&
     !data.heatingType &&
     !data.heatingShutoff.trim() &&
