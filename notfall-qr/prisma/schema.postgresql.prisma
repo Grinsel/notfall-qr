@@ -1,0 +1,53 @@
+// ============================================================
+// PostgreSQL-Version des Schemas für Produktion
+// ============================================================
+// Verwendung:
+//   1. cp prisma/schema.postgresql.prisma prisma/schema.prisma
+//   2. DATABASE_URL in .env auf PostgreSQL setzen
+//   3. npx prisma migrate dev --name init
+// ============================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model EmergencyRecord {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title         String
+  encryptedData String   @db.Text
+  encryptionIv  String
+  encryptionTag String
+  accessToken   String   @unique
+  editToken     String   @unique
+  pinHash       String?
+  isActive      Boolean  @default(true)
+  email         String?
+
+  accessLogs AccessLog[]
+
+  @@index([accessToken])
+  @@index([editToken])
+}
+
+model AccessLog {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  recordId  String
+  record    EmergencyRecord @relation(fields: [recordId], references: [id], onDelete: Cascade)
+
+  action    String
+  ipHash    String
+  userAgent String?  @db.VarChar(100)
+
+  @@index([recordId])
+  @@index([createdAt])
+}
