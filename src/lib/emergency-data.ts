@@ -85,8 +85,8 @@ export function serializeEmergencyData(data: EmergencyData): string {
 
   // Wohnung / Gebäude
   const wohnungLines: string[] = [];
-  if (data.spareKey.trim()) wohnungLines.push(`Ersatzschluessel: ${data.spareKey.trim()}`);
-  if (data.spareKeyLocation.trim()) wohnungLines.push(`Ersatzschluessel-Ort: ${data.spareKeyLocation.trim()}`);
+  if (data.spareKey.trim()) wohnungLines.push(`Ersatzschlüssel: ${data.spareKey.trim()}`);
+  if (data.spareKeyLocation.trim()) wohnungLines.push(`Ersatzschlüssel-Ort: ${data.spareKeyLocation.trim()}`);
   if (data.emergencyBox) wohnungLines.push(`Notfalldose: ${data.emergencyBox}`);
   if (data.heatingType.length > 0) wohnungLines.push(`Heizung: ${data.heatingType.join(", ")}`);
   if (data.heatingShutoff.trim()) wohnungLines.push(`Absperrhahn: ${data.heatingShutoff.trim()}`);
@@ -134,7 +134,7 @@ export function serializeEmergencyData(data: EmergencyData): string {
   // Sonstiges
   const otherLines: string[] = [];
   if (data.organDonor) otherLines.push(`Organspender: ${data.organDonor}`);
-  if (data.livingWill.trim()) otherLines.push(`Patientenverfuegung: ${data.livingWill.trim()}`);
+  if (data.livingWill.trim()) otherLines.push(`Patientenverfügung: ${data.livingWill.trim()}`);
   if (data.insurance.trim()) otherLines.push(`Krankenkasse: ${data.insurance.trim()}`);
   if (data.notes.trim()) otherLines.push(`Besondere Hinweise: ${data.notes.trim()}`);
 

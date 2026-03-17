@@ -185,7 +185,7 @@ export default function InfoPage() {
 
               <details className="group rounded-lg border border-gray-200 bg-gray-50">
                 <summary className="cursor-pointer px-4 py-3 font-medium text-gray-900 select-none">
-                  Ersatzschluessel
+                  Ersatzschlüssel
                 </summary>
                 <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
                   <p className="mb-2">Wenn die Wohnungst&uuml;r verschlossen ist, muss die Feuerwehr sie aufbrechen &ndash; das kostet Zeit und besch&auml;digt die T&uuml;r. Ein hinterlegter Ersatzschl&uuml;ssel beschleunigt den Zugang erheblich.</p>
@@ -195,7 +195,7 @@ export default function InfoPage() {
 
               <details className="group rounded-lg border border-gray-200 bg-gray-50">
                 <summary className="cursor-pointer px-4 py-3 font-medium text-gray-900 select-none">
-                  Notfalldose im Kuehlschrank
+                  Notfalldose im Kühlschrank
                 </summary>
                 <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
                   <p className="mb-2">Die Notfalldose (SOS-Dose) ist ein standardisiertes System: Eine Dose im K&uuml;hlschrank enth&auml;lt medizinische Informationen. Rettungskr&auml;fte wissen, wo sie suchen m&uuml;ssen, wenn dieser Hinweis vorhanden ist.</p>
@@ -213,7 +213,7 @@ export default function InfoPage() {
 
               <details className="group rounded-lg border border-gray-200 bg-gray-50">
                 <summary className="cursor-pointer px-4 py-3 font-medium text-gray-900 select-none">
-                  Solaranlage
+                  Photovoltaik
                 </summary>
                 <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
                   <p className="mb-2">Photovoltaik-Anlagen stehen unter Spannung, solange Licht auf die Module f&auml;llt &ndash; auch wenn der Strom im Haus abgeschaltet ist. Das ist ein ernstes Risiko bei L&ouml;scharbeiten. Die Feuerwehr muss wissen, ob eine Anlage vorhanden ist und wo die Hauptsicherung liegt.</p>
@@ -231,7 +231,7 @@ export default function InfoPage() {
 
               <details className="group rounded-lg border border-gray-200 bg-gray-50">
                 <summary className="cursor-pointer px-4 py-3 font-medium text-gray-900 select-none">
-                  Hausarzt / Hausaerztin
+                  Hausarzt / Hausärztin
                 </summary>
                 <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
                   <p className="mb-2">Der Hausarzt kennt die vollst&auml;ndige Krankengeschichte und kann im Notfall telefonisch wichtige Informationen an den Rettungsdienst oder die Notaufnahme weitergeben.</p>

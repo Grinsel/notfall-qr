@@ -50,7 +50,7 @@ export async function renderQrWithFrame(qrDataUrl: string): Promise<string> {
   ctx.textAlign = "center";
   ctx.translate(SIZE - 34, 180);
   ctx.rotate(Math.PI / 2);
-  ctx.fillText("notfall-qr.de", 0, 0);
+  ctx.fillText("qr.retter.one", 0, 0);
   ctx.restore();
 
   // QR code in center on white background

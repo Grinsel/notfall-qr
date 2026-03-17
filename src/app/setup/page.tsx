@@ -18,10 +18,10 @@ const HARD_LIMIT = 1200;
 const MAX_CONTACTS = 3;
 
 const BLOOD_TYPES = ["", "A+", "A-", "B+", "B-", "AB+", "AB-", "0+", "0-"];
-const GENDERS = ["", "Maennlich", "Weiblich", "Divers"];
+const GENDERS = ["", "Männlich", "Weiblich", "Divers"];
 const ORGAN_DONOR_OPTIONS = ["", "Ja", "Nein", "Unbekannt"];
 const JA_NEIN_OPTIONS = ["", "Ja", "Nein"];
-const HEATING_TYPES = ["Gas", "Oel", "Fernwaerme", "Waermepumpe", "Pellets", "Strom"];
+const HEATING_TYPES = ["Gas", "Öl", "Fernwärme", "Wärmepumpe", "Pellets", "Strom"];
 
 export default function SetupPage() {
   const [data, setData] = useState<EmergencyData>(createEmptyEmergencyData());
@@ -90,7 +90,7 @@ export default function SetupPage() {
 
   async function handleGenerate() {
     if (isEmpty) {
-      setError("Bitte fuellen Sie mindestens ein Feld aus.");
+      setError("Bitte füllen Sie mindestens ein Feld aus.");
       return;
     }
     if (overHard) {
@@ -108,7 +108,7 @@ export default function SetupPage() {
 
       if (url.length > 3000) {
         setError(
-          "Die Daten sind zu umfangreich fuer einen zuverlaessigen QR-Code. Bitte kuerzen Sie einzelne Felder."
+          "Die Daten sind zu umfangreich für einen zuverlässigen QR-Code. Bitte kürzen Sie einzelne Felder."
         );
         setGenerating(false);
         return;
@@ -126,7 +126,7 @@ export default function SetupPage() {
       setFramedDataUrl(framed);
       setFullUrl(url);
     } catch {
-      setError("Fehler bei der Verschluesselung. Bitte versuchen Sie es erneut.");
+      setError("Fehler bei der Verschlüsselung. Bitte versuchen Sie es erneut.");
     } finally {
       setGenerating(false);
     }
@@ -160,8 +160,8 @@ export default function SetupPage() {
             QR-Code erstellen
           </h1>
           <p className="text-gray-600 mb-8">
-            Geben Sie die Informationen ein, die Einsatzkraefte im Notfall sehen sollen. Alle
-            Felder sind optional. Die Daten werden direkt in Ihrem Browser verschluesselt und im
+            Geben Sie die Informationen ein, die Einsatzkräfte im Notfall sehen sollen. Alle
+            Felder sind optional. Die Daten werden direkt in Ihrem Browser verschlüsselt und im
             QR-Code gespeichert &ndash; es werden keine Daten an einen Server gesendet.
           </p>
 
@@ -184,9 +184,9 @@ export default function SetupPage() {
                     />
                   </svg>
                   <div className="text-sm text-warning-600">
-                    <strong>Wichtig:</strong> Dieser QR-Code enthaelt Ihre Daten. Jede Person, die
-                    ihn scannt, kann die Informationen lesen. Geben Sie nur ein, was Einsatzkraefte
-                    wissen sollen. Keine Passwoerter, PINs oder Finanzdaten.
+                    <strong>Wichtig:</strong> Dieser QR-Code enthält Ihre Daten. Jede Person, die
+                    ihn scannt, kann die Informationen lesen. Geben Sie nur ein, was Einsatzkräfte
+                    wissen sollen. Keine Passwörter, PINs oder Finanzdaten.
                   </div>
                 </div>
               </div>
@@ -197,9 +197,9 @@ export default function SetupPage() {
                   Haben Sie eine Notfalldose?
                 </h3>
                 <p className="text-sm text-primary-700 mb-3">
-                  Die Notfalldose (SOS-Dose / Rotkreuzdose) ist ein Behaelter im Kuehlschrank, der
-                  alle wichtigen medizinischen Daten auf Papier enthaelt. Rettungskraefte wissen, wo
-                  sie suchen muessen. Wenn Sie eine Notfalldose haben, werden medizinische Felder
+                  Die Notfalldose (SOS-Dose / Rotkreuzdose) ist ein Behälter im Kühlschrank, der
+                  alle wichtigen medizinischen Daten auf Papier enthält. Rettungskräfte wissen, wo
+                  sie suchen müssen. Wenn Sie eine Notfalldose haben, werden medizinische Felder
                   hier ausgeblendet &ndash; die Daten stehen bereits in Ihrer Dose.
                 </p>
                 <p className="text-sm text-primary-700 mb-3">
@@ -221,7 +221,7 @@ export default function SetupPage() {
                     className="w-5 h-5 rounded border-primary-600 text-primary-600 focus:ring-primary-500"
                   />
                   <span className="text-sm font-medium text-primary-800">
-                    Ja, ich habe eine Notfalldose im Kuehlschrank
+                    Ja, ich habe eine Notfalldose im Kühlschrank
                   </span>
                 </label>
               </div>
@@ -229,23 +229,23 @@ export default function SetupPage() {
               {/* Label */}
               <div className="mb-6">
                 <label htmlFor="label" className="label-text">
-                  Bezeichnung (optional, nur fuer Sie)
+                  Bezeichnung (optional, nur für Sie)
                 </label>
                 <input
                   id="label"
                   type="text"
                   className="input-field"
-                  placeholder="z.B. Wohnung Hauptstrasse 5"
+                  placeholder="z.B. Wohnung Hauptstraße 5"
                   value={label}
                   onChange={(e) => setLabel(e.target.value)}
                   maxLength={100}
                 />
               </div>
 
-              {/* Section: Persoenliche Daten */}
+              {/* Section: Persönliche Daten */}
               <div className="card mb-6">
                 <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                  Persoenliche Daten
+                  Persönliche Daten
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
@@ -288,7 +288,7 @@ export default function SetupPage() {
                         >
                           {GENDERS.map((g) => (
                             <option key={g} value={g}>
-                              {g || "– Bitte waehlen –"}
+                              {g || "– Bitte wählen –"}
                             </option>
                           ))}
                         </select>
@@ -305,7 +305,7 @@ export default function SetupPage() {
                         >
                           {BLOOD_TYPES.map((b) => (
                             <option key={b} value={b}>
-                              {b || "– Bitte waehlen –"}
+                              {b || "– Bitte wählen –"}
                             </option>
                           ))}
                         </select>
@@ -315,15 +315,15 @@ export default function SetupPage() {
                 </div>
               </div>
 
-              {/* Section: Wohnung / Gebaeude */}
+              {/* Section: Wohnung / Gebäude */}
               <div className="card mb-6">
                 <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                  Wohnung / Gebaeude
+                  Wohnung / Gebäude
                 </h2>
                 <div className="space-y-4">
                   <div>
                     <label htmlFor="ed-sparekey" className="label-text">
-                      Ersatzschluessel
+                      Ersatzschlüssel
                     </label>
                     <textarea
                       id="ed-sparekey"
@@ -336,13 +336,13 @@ export default function SetupPage() {
                   {data.spareKey.trim() && (
                     <div>
                       <label htmlFor="ed-sparekeyloc" className="label-text">
-                        Ersatzschluessel-Ort
+                        Ersatzschlüssel-Ort
                       </label>
                       <input
                         id="ed-sparekeyloc"
                         type="text"
                         className="input-field"
-                        placeholder="z.B. Schluesseltresor an der Hauswand, Nachbarin Frau M. Wohnung 12"
+                        placeholder="z.B. Schlüsseltresor an der Hauswand, Nachbarin Frau M. Wohnung 12"
                         value={data.spareKeyLocation}
                         onChange={(e) => updateField("spareKeyLocation", e.target.value)}
                       />
@@ -378,7 +378,7 @@ export default function SetupPage() {
                         id="ed-heatingshutoff"
                         type="text"
                         className="input-field"
-                        placeholder="z.B. Keller links neben Zaehler"
+                        placeholder="z.B. Keller links neben Zähler"
                         value={data.heatingShutoff}
                         onChange={(e) => updateField("heatingShutoff", e.target.value)}
                       />
@@ -397,7 +397,7 @@ export default function SetupPage() {
                       >
                         {JA_NEIN_OPTIONS.map((o) => (
                           <option key={o} value={o}>
-                            {o || "– Bitte waehlen –"}
+                            {o || "– Bitte wählen –"}
                           </option>
                         ))}
                       </select>
@@ -492,13 +492,13 @@ export default function SetupPage() {
                     </div>
                     <div>
                       <label htmlFor="ed-doctor" className="label-text">
-                        Hausarzt / Hausaerztin
+                        Hausarzt / Hausärztin
                       </label>
                       <input
                         id="ed-doctor"
                         type="text"
                         className="input-field"
-                        placeholder="z.B. Praxis Dr. Schmidt, Hauptstr. 10"
+                        placeholder="z.B. Praxis Dr. Schmidt, Hauptstraße 10"
                         value={data.familyDoctor}
                         onChange={(e) => updateField("familyDoctor", e.target.value)}
                       />
@@ -599,20 +599,20 @@ export default function SetupPage() {
                         >
                           {ORGAN_DONOR_OPTIONS.map((o) => (
                             <option key={o} value={o}>
-                              {o || "– Bitte waehlen –"}
+                              {o || "– Bitte wählen –"}
                             </option>
                           ))}
                         </select>
                       </div>
                       <div>
                         <label htmlFor="ed-will" className="label-text">
-                          Patientenverfuegung
+                          Patientenverfügung
                         </label>
                         <input
                           id="ed-will"
                           type="text"
                           className="input-field"
-                          placeholder="z.B. Ja, beim Hausarzt hinterlegt"
+                          placeholder="z.B. Ja, bei Hausärztin hinterlegt"
                           value={data.livingWill}
                           onChange={(e) => updateField("livingWill", e.target.value)}
                         />
@@ -639,7 +639,7 @@ export default function SetupPage() {
                     <textarea
                       id="ed-notes"
                       className="input-field min-h-[60px] resize-y"
-                      placeholder="z.B. Rollstuhlfahrer, gehoerlos, Demenz, bettlaegerig, Sauerstoffgeraet, 2. Schluessel bei Nachbar Mueller Hausnummer 4"
+                      placeholder="z.B. Rollstuhlfahrer, gehörlos, Demenz, bettlägerig, Sauerstoffgerät, 2. Schlüssel bei Nachbar Müller Hausnummer 4"
                       value={data.notes}
                       onChange={(e) => updateField("notes", e.target.value)}
                     />
@@ -658,7 +658,7 @@ export default function SetupPage() {
                       : "text-gray-400"
                   }`}
                 >
-                  {overSoft && !overHard && "QR-Code wird gross — kuerzer ist besser"}
+                  {overSoft && !overHard && "QR-Code wird groß — kürzer ist besser"}
                   {overHard && "Maximale Zeichenzahl erreicht"}
                 </span>
                 <span
@@ -685,7 +685,7 @@ export default function SetupPage() {
                 disabled={generating || isEmpty || overHard}
                 className="btn-primary w-full py-3 text-base"
               >
-                {generating ? "Wird verschluesselt..." : "QR-Code generieren"}
+                {generating ? "Wird verschlüsselt..." : "QR-Code generieren"}
               </button>
             </>
           ) : (
@@ -718,15 +718,15 @@ export default function SetupPage() {
                 <h3 className="font-semibold text-sm mb-2">So geht es weiter:</h3>
                 <ol className="text-sm text-gray-600 space-y-1 list-decimal list-inside">
                   <li>Laden Sie den QR-Code herunter oder drucken Sie ihn aus</li>
-                  <li>Bringen Sie ihn sichtbar an Ihrer Haustuer an</li>
-                  <li>Fertig &ndash; im Notfall scannen Einsatzkraefte den Code</li>
+                  <li>Bringen Sie ihn sichtbar an Ihrer Haustür an</li>
+                  <li>Fertig &ndash; im Notfall scannen Einsatzkräfte den Code</li>
                 </ol>
               </div>
 
               <div className="rounded-lg bg-primary-50 border border-primary-200 p-4 mb-6 text-sm text-left">
-                <strong>Hinweis:</strong> Ihre Daten sind ausschliesslich in diesem QR-Code
+                <strong>Hinweis:</strong> Ihre Daten sind ausschließlich in diesem QR-Code
                 gespeichert. Es gibt keine Kopie auf einem Server. Wenn Sie den QR-Code verlieren,
-                muessen Sie einen neuen erstellen.
+                müssen Sie einen neuen erstellen.
               </div>
 
               {fullUrl && (
@@ -741,7 +741,7 @@ export default function SetupPage() {
                       rel="noopener noreferrer"
                       className="text-primary-600 hover:underline text-sm break-all"
                     >
-                      Link oeffnen
+                      Link öffnen
                     </a>
                   </div>
                 </details>

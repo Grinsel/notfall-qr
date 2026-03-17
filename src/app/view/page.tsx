@@ -6,8 +6,8 @@ import { parseStructuredContent, StructuredSection } from "@/lib/emergency-data"
 import { Logo } from "@/components/Logo";
 
 const SECTION_LABELS: Record<string, string> = {
-  PERSON: "Persoenliche Daten",
-  WOHNUNG: "Wohnung / Gebaeude",
+  PERSON: "Persönliche Daten",
+  WOHNUNG: "Wohnung / Gebäude",
   MEDIZINISCH: "Medizinische Daten",
   NOTFALLKONTAKTE: "Notfallkontakte",
   SONSTIGES: "Sonstiges",
@@ -87,10 +87,10 @@ export default function ViewPage() {
         <div className="text-center">
           <div className="text-5xl mb-6">&#9888;</div>
           <h1 className="text-2xl sm:text-3xl font-bold text-white mb-3">
-            QR-Code ungueltig oder beschaedigt
+            QR-Code ungültig oder beschädigt
           </h1>
           <p className="text-gray-400 text-sm">
-            Die Daten konnten nicht entschluesselt werden.
+            Die Daten konnten nicht entschlüsselt werden.
           </p>
         </div>
       </div>
