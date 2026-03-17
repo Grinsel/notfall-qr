@@ -10,6 +10,7 @@ import {
   serializeEmergencyData,
   isEmergencyDataEmpty,
 } from "@/lib/emergency-data";
+import { renderQrWithFrame } from "@/lib/qr-frame";
 import QRCode from "qrcode";
 
 const SOFT_LIMIT = 800;
@@ -24,6 +25,7 @@ export default function SetupPage() {
   const [data, setData] = useState<EmergencyData>(createEmptyEmergencyData());
   const [label, setLabel] = useState("");
   const [qrDataUrl, setQrDataUrl] = useState<string | null>(null);
+  const [framedDataUrl, setFramedDataUrl] = useState<string | null>(null);
   const [fullUrl, setFullUrl] = useState<string | null>(null);
   const [generating, setGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -96,7 +98,9 @@ export default function SetupPage() {
         color: { dark: "#000000", light: "#ffffff" },
       });
 
+      const framed = await renderQrWithFrame(dataUrl);
       setQrDataUrl(dataUrl);
+      setFramedDataUrl(framed);
       setFullUrl(url);
     } catch {
       setError("Fehler bei der Verschluesselung. Bitte versuchen Sie es erneut.");
@@ -106,12 +110,12 @@ export default function SetupPage() {
   }
 
   function handleDownload() {
-    if (!qrDataUrl) return;
+    if (!framedDataUrl) return;
     const link = document.createElement("a");
     link.download = label.trim()
       ? `notfall-qr-${label.trim().toLowerCase().replace(/\s+/g, "-")}.png`
       : "notfall-qr.png";
-    link.href = qrDataUrl;
+    link.href = framedDataUrl;
     link.click();
   }
 
@@ -119,6 +123,7 @@ export default function SetupPage() {
     setData(createEmptyEmergencyData());
     setLabel("");
     setQrDataUrl(null);
+    setFramedDataUrl(null);
     setFullUrl(null);
     setError(null);
   }
@@ -488,9 +493,9 @@ export default function SetupPage() {
                 {label && <p className="text-sm text-gray-500 mb-4">{label}</p>}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={qrDataUrl}
+                  src={framedDataUrl || qrDataUrl}
                   alt="Notfall-QR-Code"
-                  className="w-64 h-64 sm:w-80 sm:h-80 mx-auto"
+                  className="w-72 h-72 sm:w-96 sm:h-96 mx-auto"
                 />
                 <canvas ref={canvasRef} className="hidden" />
               </div>
