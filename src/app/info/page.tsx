@@ -261,6 +261,82 @@ export default function InfoPage() {
             </div>
           </section>
 
+          {/* Drucken & Anbringen */}
+          <section id="drucken" className="mb-10">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">QR-Code drucken &amp; anbringen</h2>
+            <div className="space-y-2">
+              <details className="group rounded-lg border border-gray-200 bg-gray-50">
+                <summary className="cursor-pointer px-4 py-3 font-medium text-gray-900 select-none">
+                  Zuhause ausdrucken
+                </summary>
+                <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>Normales Papier reicht f&uuml;r den Anfang</li>
+                    <li>Am besten laminieren (Laminierger&auml;t oder Klarsichtfolie)</li>
+                    <li>Mindestgr&ouml;&szlig;e ca. 5&times;5&nbsp;cm empfohlen</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details className="group rounded-lg border border-gray-200 bg-gray-50">
+                <summary className="cursor-pointer px-4 py-3 font-medium text-gray-900 select-none">
+                  Im Drogeriemarkt drucken
+                </summary>
+                <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>DM, M&uuml;ller, Rossmann haben Foto-Selbstbedienungsterminals</li>
+                    <li>QR-Code als Bild auf USB-Stick oder Smartphone mitbringen</li>
+                    <li>Als Foto im Format 10&times;10&nbsp;cm oder 9&times;13&nbsp;cm drucken</li>
+                    <li><strong>Tipp:</strong> Fotoabzug ist wetterfester als Normalpapier</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details className="group rounded-lg border border-gray-200 bg-gray-50">
+                <summary className="cursor-pointer px-4 py-3 font-medium text-gray-900 select-none">
+                  Online-Druckservice nutzen
+                </summary>
+                <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>Aufkleber/Sticker bestellen bei Diensten wie Sticker it, Printful, StickerApp, wir-machen-druck.de</li>
+                    <li>&bdquo;Wetterfester Vinyl-Aufkleber&ldquo; als Suchbegriff</li>
+                    <li>PNG-Datei hochladen, Gr&ouml;&szlig;e ca. 8&ndash;10&nbsp;cm w&auml;hlen</li>
+                    <li><strong>Vorteil:</strong> Wetterfest, selbstklebend, langlebig</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details className="group rounded-lg border border-gray-200 bg-gray-50">
+                <summary className="cursor-pointer px-4 py-3 font-medium text-gray-900 select-none">
+                  Richtig anbringen
+                </summary>
+                <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>Au&szlig;enseite der Wohnungst&uuml;r (nicht Haust&uuml;r bei Mehrfamilienhaus)</li>
+                    <li>Auf Augenh&ouml;he, gut sichtbar</li>
+                    <li>Neben Klingel/Briefkasten als Alternative</li>
+                    <li>QR-Code muss mit Smartphone-Kamera aus ca. 20&nbsp;cm scanbar sein</li>
+                    <li>Regelm&auml;&szlig;ig pr&uuml;fen, ob noch lesbar</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details className="group rounded-lg border border-gray-200 bg-gray-50">
+                <summary className="cursor-pointer px-4 py-3 font-medium text-gray-900 select-none">
+                  Haltbarkeit &amp; Wetterschutz
+                </summary>
+                <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>Papier ohne Schutz: wenige Wochen outdoor</li>
+                    <li>Laminiert: mehrere Monate</li>
+                    <li>Vinyl-Aufkleber: 2&ndash;5 Jahre outdoor</li>
+                    <li>Unter Vordach/&uuml;berdacht: deutlich l&auml;nger haltbar</li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          </section>
+
           {/* CTA */}
           <div className="text-center pt-4">
             <Link href="/setup" className="btn-primary text-base px-8 py-3">

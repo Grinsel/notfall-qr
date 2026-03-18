@@ -32,6 +32,7 @@ export default function SetupPage() {
   const [generating, setGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
 
   const hasNotfalldose = data.emergencyBox === "Ja";
 
@@ -125,6 +126,9 @@ export default function SetupPage() {
       setQrDataUrl(dataUrl);
       setFramedDataUrl(framed);
       setFullUrl(url);
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
     } catch {
       setError("Fehler bei der Verschlüsselung. Bitte versuchen Sie es erneut.");
     } finally {
@@ -690,7 +694,7 @@ export default function SetupPage() {
             </>
           ) : (
             /* Result */
-            <div className="text-center">
+            <div ref={resultRef} className="text-center">
               <div className="card inline-block p-8 mb-6">
                 {label && <p className="text-sm text-gray-500 mb-4">{label}</p>}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -715,12 +719,28 @@ export default function SetupPage() {
               </div>
 
               <div className="card text-left mb-6">
-                <h3 className="font-semibold text-sm mb-2">So geht es weiter:</h3>
-                <ol className="text-sm text-gray-600 space-y-1 list-decimal list-inside">
-                  <li>Laden Sie den QR-Code herunter oder drucken Sie ihn aus</li>
-                  <li>Bringen Sie ihn sichtbar an Ihrer Haustür an</li>
-                  <li>Fertig &ndash; im Notfall scannen Einsatzkräfte den Code</li>
+                <h3 className="font-semibold text-lg mb-3">So geht es weiter:</h3>
+                <ol className="text-base text-gray-600 space-y-2 list-decimal list-inside">
+                  <li>Laden Sie den QR-Code herunter</li>
+                  <li>Drucken Sie ihn aus oder bestellen Sie einen Aufkleber</li>
+                  <li>Bringen Sie ihn sichtbar an Ihrer Wohnungst&uuml;r an</li>
+                  <li>Fertig &ndash; im Notfall scannen Einsatzkr&auml;fte den Code</li>
                 </ol>
+              </div>
+
+              <div className="rounded-lg bg-primary-50 border border-primary-200 p-5 mb-6 text-left">
+                <h3 className="font-semibold text-lg mb-3">Drucken &amp; Anbringen</h3>
+                <ul className="text-base text-gray-600 space-y-2 list-disc list-inside">
+                  <li>Zuhause ausdrucken und laminieren f&uuml;r einfachen Wetterschutz</li>
+                  <li>Foto-Terminals bei DM, M&uuml;ller oder Rossmann &ndash; wetterfester als Normalpapier</li>
+                  <li>Vinyl-Aufkleber online bestellen &ndash; h&auml;lt 2&ndash;5 Jahre outdoor</li>
+                </ul>
+                <a
+                  href="/info#drucken"
+                  className="inline-block mt-3 text-base text-primary-600 hover:underline font-medium"
+                >
+                  Vollst&auml;ndige Anleitung &rarr;
+                </a>
               </div>
 
               <div className="rounded-lg bg-primary-50 border border-primary-200 p-4 mb-6 text-sm text-left">
