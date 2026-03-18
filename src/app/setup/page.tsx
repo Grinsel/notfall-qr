@@ -574,7 +574,7 @@ export default function SetupPage() {
                         onClick={addContact}
                         className="text-sm text-primary-600 hover:text-primary-700 font-medium"
                       >
-                        + Kontakt hinzufuegen
+                        + Kontakt hinzufügen
                       </button>
                     )}
                   </div>
